@@ -1,12 +1,12 @@
 #!/bin/bash
 source ../terminal_control.sh
 
-export FABRIC_CFG_PATH=/home/hlfabric/fabric/hyperledger-fabric/config
-export ORDERER_CA=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem
-export CORE_PEER_TLS_ROOTCERT_FILE_ORG1=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/indonesianfarmorg1.supplychain.com/peers/peer0.indonesianfarmorg1.supplychain.com/tls/ca.crt
-export CORE_PEER_TLS_ROOTCERT_FILE_ORG2=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/usclientorg2.supplychain.com/peers/peer0.usclientorg2.supplychain.com/tls/ca.crt
-export CORE_PEER_TLS_ROOTCERT_FILE_ORG3=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/rubbershipperorg3.supplychain.com/peers/peer0.rubbershipperorg3.supplychain.com/tls/ca.crt
-export CORE_PEER_TLS_ROOTCERT_FILE_ORG4=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/goodscustomorg4.supplychain.com/peers/peer0.goodscustomorg4.supplychain.com/tls/ca.crt
+export FABRIC_CFG_PATH=${PWD}/../config
+export ORDERER_CA=${PWD}/../supplychain-network/organizations/ordererOrganizations/supplychain.com/orderers/orderer.supplychain.com/msp/tlscacerts/tlsca.supplychain.com-cert.pem
+export CORE_PEER_TLS_ROOTCERT_FILE_ORG1=${PWD}/../supplychain-network/organizations/peerOrganizations/indonesianfarmorg1.supplychain.com/peers/peer0.indonesianfarmorg1.supplychain.com/tls/ca.crt
+export CORE_PEER_TLS_ROOTCERT_FILE_ORG2=${PWD}/../supplychain-network/organizations/peerOrganizations/usclientorg2.supplychain.com/peers/peer0.usclientorg2.supplychain.com/tls/ca.crt
+export CORE_PEER_TLS_ROOTCERT_FILE_ORG3=${PWD}/../supplychain-network/organizations/peerOrganizations/rubbershipperorg3.supplychain.com/peers/peer0.rubbershipperorg3.supplychain.com/tls/ca.crt
+export CORE_PEER_TLS_ROOTCERT_FILE_ORG4=${PWD}/../supplychain-network/organizations/peerOrganizations/goodscustomorg4.supplychain.com/peers/peer0.goodscustomorg4.supplychain.com/tls/ca.crt
 
 CHANNEL_NAME="supplychain-channel"
 CHAINCODE_NAME="supplychain"
@@ -17,32 +17,32 @@ CHAINCODE_LABEL="supplychain_1"
 setEnvForIndonesianFarmOrg1() {
     export CORE_PEER_TLS_ENABLED=true
     export CORE_PEER_LOCALMSPID=IndonesianFarmOrg1MSP
-    export CORE_PEER_TLS_ROOTCERT_FILE=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/indonesianfarmorg1.supplychain.com/peers/peer0.indonesianfarmorg1.supplychain.com/tls/ca.crt
-    export CORE_PEER_MSPCONFIGPATH=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/indonesianfarmorg1.supplychain.com/users/Admin@indonesianfarmorg1.supplychain.com/msp
+    export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/../supplychain-network/organizations/peerOrganizations/indonesianfarmorg1.supplychain.com/peers/peer0.indonesianfarmorg1.supplychain.com/tls/ca.crt
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/../supplychain-network/organizations/peerOrganizations/indonesianfarmorg1.supplychain.com/users/Admin@indonesianfarmorg1.supplychain.com/msp
     export CORE_PEER_ADDRESS=localhost:7051
 }
 
 setEnvForUSClientOrg2() {
     export CORE_PEER_TLS_ENABLED=true
     export CORE_PEER_LOCALMSPID=USClientOrg2MSP
-    export CORE_PEER_TLS_ROOTCERT_FILE=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/usclientorg2.supplychain.com/peers/peer0.usclientorg2.supplychain.com/tls/ca.crt
-    export CORE_PEER_MSPCONFIGPATH=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/usclientorg2.supplychain.com/users/Admin@usclientorg2.supplychain.com/msp
+    export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/../supplychain-network/organizations/peerOrganizations/usclientorg2.supplychain.com/peers/peer0.usclientorg2.supplychain.com/tls/ca.crt
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/../supplychain-network/organizations/peerOrganizations/usclientorg2.supplychain.com/users/Admin@usclientorg2.supplychain.com/msp
     export CORE_PEER_ADDRESS=localhost:9051
 }
 
 setEnvForRubberShipperOrg3() {
     export CORE_PEER_TLS_ENABLED=true
     export CORE_PEER_LOCALMSPID=RubberShipperOrg3MSP
-    export CORE_PEER_TLS_ROOTCERT_FILE=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/rubbershipperorg3.supplychain.com/peers/peer0.rubbershipperorg3.supplychain.com/tls/ca.crt
-    export CORE_PEER_MSPCONFIGPATH=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/rubbershipperorg3.supplychain.com/users/Admin@rubbershipperorg3.supplychain.com/msp
+    export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/../supplychain-network/organizations/peerOrganizations/rubbershipperorg3.supplychain.com/peers/peer0.rubbershipperorg3.supplychain.com/tls/ca.crt
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/../supplychain-network/organizations/peerOrganizations/rubbershipperorg3.supplychain.com/users/Admin@rubbershipperorg3.supplychain.com/msp
     export CORE_PEER_ADDRESS=localhost:11051
 }
 
 setEnvForGoodsCustomOrg4() {
     export CORE_PEER_TLS_ENABLED=true
     export CORE_PEER_LOCALMSPID=GoodsCustomOrg4MSP
-    export CORE_PEER_TLS_ROOTCERT_FILE=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/goodscustomorg4.supplychain.com/peers/peer0.goodscustomorg4.supplychain.com/tls/ca.crt
-    export CORE_PEER_MSPCONFIGPATH=/home/hlfabric/fabric/hyperledger-fabric/supplychain-network/organizations/peerOrganizations/goodscustomorg4.supplychain.com/users/Admin@goodscustomorg4.supplychain.com/msp
+    export CORE_PEER_TLS_ROOTCERT_FILE=${PWD}/../supplychain-network/organizations/peerOrganizations/goodscustomorg4.supplychain.com/peers/peer0.goodscustomorg4.supplychain.com/tls/ca.crt
+    export CORE_PEER_MSPCONFIGPATH=${PWD}/../supplychain-network/organizations/peerOrganizations/goodscustomorg4.supplychain.com/users/Admin@goodscustomorg4.supplychain.com/msp
     export CORE_PEER_ADDRESS=localhost:13051
 }
 
