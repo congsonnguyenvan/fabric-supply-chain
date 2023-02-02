@@ -1,2 +1,2 @@
 Installed chaincodes on peer:
-Package ID: supplychain_1:3bcbd57581f1a14337354ea3282174b2ff8700e6ad0ea6a0ae462975497d32d0, Label: supplychain_1
+Package ID: supplychain_1:22160f434cbf2970fa5f32c3fa13e744e3aeaa2f6dcb071275d23affe996929f, Label: supplychain_1
