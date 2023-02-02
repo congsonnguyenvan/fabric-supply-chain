@@ -172,6 +172,126 @@ app.get('/api/queryrubberhistory/', async function (req, res) {
     }
 })
 
+app.get('/api/queryrubberbillhistory/', async function (req, res) {
+    try {
+        const username = req.body.username
+        // load the network configuration
+        const ccpPath = path.resolve(__dirname, 'connection-org1.json')
+        const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf-8'))
+
+        // Create a new file system based wallet for managing identities.
+        const walletPath = path.join(process.cwd(), 'walletOrg1')
+        const wallet = await Wallets.newFileSystemWallet(walletPath)
+        console.log(`Wallet path: ${walletPath}`)
+
+        // Check to see if we've already enrolled the user.
+        const identity = await wallet.get(username)
+        if (!identity) {
+            console.log(`An identity for the user "${username}" does not exist in the wallet`)
+            console.log('Run the registerUser.js application before retrying')
+            throw new Error(`An identity for the user ${username.toUpperCase()} does not exist in the wallet`)
+            return
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway()
+        await gateway.connect(ccp, { 
+            wallet, 
+            identity: username, 
+            discovery: { 
+                enabled: true, 
+                asLocalhost: true 
+                } 
+        })
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork('supplychain-channel')
+
+        // Get the contract from the network.
+        const contract = network.getContract('supplychain')
+
+        // Evaluate the specified transaction
+        // QueryGeneratedRubberCert has 1 argument : rubberBatchNumber string
+        // ex: {'QueryGeneratedRubberCert', 'rubber1'}
+        const result = await contract.evaluateTransaction('QueryRubberBillHistory', req.body.billNumber)
+        console.log(`Transaction has been evaluated, result is: ${result.toString()}`)
+        res.status(200).json({ 
+            result: JSON.parse(result.toString()),
+            error: null,
+            })
+
+        //Disconnect from the gateway.
+        await gateway.disconnect()
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`)
+        res.status(501).json({ 
+            result: null,
+            error: error.message
+            })
+    }
+})
+
+app.get('/api/queryapprovalcerthistory/', async function (req, res) {
+    try {
+        const username = req.body.username
+        // load the network configuration
+        const ccpPath = path.resolve(__dirname, 'connection-org1.json')
+        const ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf-8'))
+
+        // Create a new file system based wallet for managing identities.
+        const walletPath = path.join(process.cwd(), 'walletOrg1')
+        const wallet = await Wallets.newFileSystemWallet(walletPath)
+        console.log(`Wallet path: ${walletPath}`)
+
+        // Check to see if we've already enrolled the user.
+        const identity = await wallet.get(username)
+        if (!identity) {
+            console.log(`An identity for the user "${username}" does not exist in the wallet`)
+            console.log('Run the registerUser.js application before retrying')
+            throw new Error(`An identity for the user ${username.toUpperCase()} does not exist in the wallet`)
+            return
+        }
+
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway()
+        await gateway.connect(ccp, { 
+            wallet, 
+            identity: username, 
+            discovery: { 
+                enabled: true, 
+                asLocalhost: true 
+                } 
+        })
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork('supplychain-channel')
+
+        // Get the contract from the network.
+        const contract = network.getContract('supplychain')
+
+        // Evaluate the specified transaction
+        // QueryGeneratedRubberCert has 1 argument : rubberBatchNumber string
+        // ex: {'QueryGeneratedRubberCert', 'rubber1'}
+        const result = await contract.evaluateTransaction('QueryApprovalCertHistory', req.body.approvalCertNumber)
+        console.log(`Transaction has been evaluated, result is: ${result.toString()}`)
+        res.status(200).json({ 
+            result: JSON.parse(result.toString()),
+            error: null,
+            })
+
+        //Disconnect from the gateway.
+        await gateway.disconnect()
+    } catch (error) {
+        console.error(`Failed to evaluate transaction: ${error}`)
+        res.status(501).json({ 
+            result: null,
+            error: error.message
+            })
+    }
+})
+
+
+
 app.get('/api/querygeneratedrubbercert/', async function (req, res) {
     try {
         const username = req.body.username
